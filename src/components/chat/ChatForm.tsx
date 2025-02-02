@@ -1,4 +1,33 @@
+"use client";
+
+import { sendMessageAtom } from "@/app/common/store/chat/chat";
+import { useAtom } from "jotai";
+import { useState } from "react";
+
 export default function ChatForm() {
+  const [message, setMessage] = useState("");
+  const [, setSender] = useAtom(sendMessageAtom);
+  const sendMessage = async () => {
+    if (!message) return;
+
+    try {
+      await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          role: "user",
+          message,
+        }),
+      });
+
+      setSender(true);
+    } catch (error) {
+      console.error(error);
+    }
+    setMessage("");
+  };
   return (
     <div
       style={{
@@ -19,6 +48,14 @@ export default function ChatForm() {
             borderRadius: 10,
             border: "1px solid #ccc",
           }}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && e.nativeEvent.isComposing === false) {
+              e.preventDefault();
+              sendMessage();
+            }
+          }}
         />
         <button
           style={{
@@ -28,6 +65,7 @@ export default function ChatForm() {
             borderRadius: 10,
             border: "none",
           }}
+          onClick={() => sendMessage()}
         >
           送信
         </button>
