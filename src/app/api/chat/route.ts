@@ -1,12 +1,6 @@
 import { NextResponse } from "next/server";
 
-let chatMessage = [
-  {
-    id: 1,
-    role: "bot",
-    message: "こんにちは",
-  },
-];
+let chatMessage = [{}];
 
 export async function GET() {
   return NextResponse.json(chatMessage);
@@ -29,5 +23,5 @@ export async function POST(request: any) {
     message: data.message,
   });
 
-  NextResponse.json(chatMessage);
+  return NextResponse.json(chatMessage);
 }
