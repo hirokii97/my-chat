@@ -1,12 +1,12 @@
 "use client";
 
-import { sendMessageAtom } from "@/app/common/store/chat/chat";
+import { senderAtom } from "@/app/common/store/chat/chat";
 import { useAtom } from "jotai";
 import { useState } from "react";
 
 export default function ChatForm() {
   const [message, setMessage] = useState("");
-  const [, setSender] = useAtom(sendMessageAtom);
+  const [, setSender] = useAtom(senderAtom);
   const sendMessage = async () => {
     if (!message) return;
 
