@@ -3,6 +3,8 @@
 import { senderAtom } from "@/app/common/store/chat/chat";
 import { useAtom } from "jotai";
 import { useState } from "react";
+import { Button } from "@mui/material";
+import SendIcon from "@mui/icons-material/Send";
 
 export default function ChatForm() {
   const [message, setMessage] = useState("");
@@ -57,18 +59,14 @@ export default function ChatForm() {
             }
           }}
         />
-        <button
-          style={{
-            padding: 10,
-            background: "#006BD6",
-            color: "white",
-            borderRadius: 10,
-            border: "none",
+        <Button
+          variant="contained"
+          onClick={() => {
+            sendMessage();
           }}
-          onClick={() => sendMessage()}
         >
-          送信
-        </button>
+          <SendIcon />
+        </Button>
       </div>
     </div>
   );
