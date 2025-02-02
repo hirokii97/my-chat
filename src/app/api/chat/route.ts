@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 let chatMessage = [{}];
 
@@ -6,7 +6,7 @@ export async function GET() {
   return NextResponse.json(chatMessage);
 }
 
-export async function POST(request: any) {
+export async function POST(request: NextRequest) {
   const data = await request.json();
 
   const newMessage = {
